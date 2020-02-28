@@ -1,32 +1,22 @@
-import React, { useState, useEffect } from 'react';
 
-const App = () => {
+import React from 'react'
+import Users from './Users';
+import SingleUser from './SingleUser';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
-  const [users, setUsers] = useState([]);
-
-  const getUsers = async () => {
-    let res = await fetch('https://jsonplaceholder.typicode.com/users');
-    let users = await res.json();
-    setUsers(users);
-  }
-
-  useEffect(() => {
-    getUsers()
-  }, []);
-
+function App() {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-12">
-          <ul className="list-group">
-            {users.map(user => (
-              <li key={user.id} className='list-group-item'>{user.name}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div >
-
+    <Router>
+      <h1>Hook It Up!</h1>
+      <Switch>
+        <Route exact path="/" component={Users} />
+        <Route path="/:id/details" component={SingleUser} />
+      </Switch>
+    </Router>
   )
 }
 
